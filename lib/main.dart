@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:supabase/view/supabase.dart';
+import 'package:supabase_connect/view/supabase_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await dotenv.load();
   await Supabase.initialize(
     url: dotenv.get("PROJECT_URL"),
     anonKey: dotenv.get("PROJECT_API_KEY"),
