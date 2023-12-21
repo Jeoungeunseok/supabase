@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_connect/view/supabase_realTime_view.dart';
 import 'package:supabase_connect/view/supabase_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,7 +28,8 @@ class SupabaseApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeState(),
-        '/supabase_view': (context) => const SupabaseViewState(),
+        '/supabase_view': (context) => const SupabaseView(),
+        '/supabase_realTime_view': (context) => SupabaseRealtimeView(),
       },
     );
   }
@@ -57,6 +59,12 @@ class _HomesetStateState extends State<HomeState> {
                   Navigator.pushNamed(context, '/supabase_view');
                 },
                 child: const Text('supabase_view'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/supabase_realTime_view');
+                },
+                child: const Text('supabase_realTime_view'),
               ),
             ])));
   }

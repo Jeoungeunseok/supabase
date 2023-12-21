@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseViewState extends StatefulWidget {
-  const SupabaseViewState({super.key});
+class SupabaseView extends StatefulWidget {
+  const SupabaseView({super.key});
 
   @override
-  State<SupabaseViewState> createState() => _SupabaseViewSetState();
+  State<SupabaseView> createState() => _SupabaseViewSetState();
 }
 
-class _SupabaseViewSetState extends State<SupabaseViewState> {
+class _SupabaseViewSetState extends State<SupabaseView> {
   List<dynamic> dataList = [];
   final supabase = Supabase.instance.client;
 
