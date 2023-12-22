@@ -22,6 +22,12 @@ class _SupabaseSubscribeViewSetState extends State<SupabaseSubscribeView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    todoTextController.dispose();
+    super.dispose();
+  }
+
   void todoSubscribe() {
     supabase
         .channel('todos')
@@ -34,10 +40,17 @@ class _SupabaseSubscribeViewSetState extends State<SupabaseSubscribeView> {
   }
 
   void eventHandler(payload) {
-    if (payload.newRecord['todo'] != null) {
-      print('비어 있는것이 아니였군요');
+    debugPrint('payload:${payload.toString()}');
+    if (payload.eventType == PostgresChangeEvent.insert) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(' ${payload.newRecord['todo']}이 추가되었습니다')));
+    } else if ((payload.eventType == PostgresChangeEvent.update)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(' ${payload.newRecord['todo']}로 수정되었습니다')));
+    } else if ((payload.eventType == PostgresChangeEvent.delete)) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('삭제되었습니다')));
     }
-    debugPrint('payload: ${payload.newRecord['todo']}');
   }
 
   @override
