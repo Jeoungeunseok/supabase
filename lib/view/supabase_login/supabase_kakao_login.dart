@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:supabase_connect/utils/login_button.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class KaKaoLogin extends StatelessWidget {
-  const KaKaoLogin({super.key});
+  KaKaoLogin({super.key});
+  final supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,18 @@ class KaKaoLogin extends StatelessWidget {
                   });
                 },
                 child: const Text('Hash Key check'),
+              ),
+              loginButton(
+                text: '카카오 로그인',
+                textColor: Colors.black,
+                buttonColor: Colors.yellow,
+                context: context,
+                svgPath: 'assets/kakao_logo.svg',
+                onPressed: () async {
+                  await supabase.auth.signInWithOAuth(
+                    OAuthProvider.kakao,
+                  );
+                },
               ),
               ElevatedButton(
                 onPressed: () {
