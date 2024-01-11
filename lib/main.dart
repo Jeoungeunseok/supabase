@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:supabase_connect/view/supabase_login/supabase_kakao_login.dart';
+import 'package:supabase_connect/view/supabase_login/kakao.dart/supabase_kakao_login.dart';
 import 'package:supabase_connect/view/supabase_login/supabase_login_list.dart';
 import 'package:supabase_connect/view/supabase_crud_view.dart';
 import 'package:supabase_connect/view/supabase_realTime_view.dart';

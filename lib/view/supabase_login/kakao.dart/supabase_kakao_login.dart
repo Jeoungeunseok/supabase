@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:supabase_connect/utils/login_button.dart';
+import 'package:supabase_connect/view/supabase_login/kakao.dart/kakao_login_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class KaKaoLogin extends StatelessWidget {
@@ -40,17 +41,28 @@ class KaKaoLogin extends StatelessWidget {
                 child: const Text('Hash Key check'),
               ),
               loginButton(
-                text: '카카오 로그인',
-                textColor: Colors.black,
-                buttonColor: Colors.yellow,
-                context: context,
-                svgPath: 'assets/kakao_logo.svg',
-                onPressed: () async {
-                  await supabase.auth.signInWithOAuth(
-                    OAuthProvider.kakao,
-                  );
-                },
-              ),
+                  text: '카카오 로그인',
+                  textColor: Colors.black,
+                  buttonColor: Colors.yellow,
+                  context: context,
+                  svgPath: 'assets/kakao_logo.svg',
+                  onPressed: () async {
+                    await supabase.auth.signInWithOAuth(OAuthProvider.kakao);
+
+                    // Listen to auth state changes in order to detect when ther OAuth login is complete.
+                    supabase.auth.onAuthStateChange.listen((data) {
+                      final AuthChangeEvent event = data.event;
+                      if (event == AuthChangeEvent.signedIn) {
+                        debugPrint('데이터 : $data');
+                        debugPrint('세션 : ${data.session}');
+
+                        // Do something when user sign in
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                KakaoInfo(session: data.session!)));
+                      }
+                    });
+                  }),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
