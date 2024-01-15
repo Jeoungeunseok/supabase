@@ -6,6 +6,8 @@ Widget loginButton({
   required String text,
   required VoidCallback onPressed,
   String? svgPath,
+  int? width,
+  int? height,
   Color? textColor,
   Color? buttonColor,
   BorderSide? side,
@@ -29,8 +31,8 @@ Widget loginButton({
               child: svgPath != null
                   ? SvgPicture.asset(
                       svgPath,
-                      width: 15,
-                      height: 15,
+                      width: width?.toDouble(),
+                      height: height?.toDouble(),
                     )
                   : Container()),
           Expanded(

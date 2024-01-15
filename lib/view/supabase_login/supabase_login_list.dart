@@ -20,6 +20,12 @@ class SupabaseLogin extends StatelessWidget {
                 },
                 child: const Text('kakao_login'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/supabase_apple_login');
+                },
+                child: const Text('apple_login'),
+              ),
             ])));
   }
 }

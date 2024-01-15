@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:supabase_connect/utils/login_button.dart';
-import 'package:supabase_connect/view/supabase_login/kakao.dart/kakao_login_info.dart';
+import 'package:supabase_connect/view/supabase_login/kakao_login/kakao_login_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class KaKaoLogin extends StatelessWidget {
@@ -46,6 +46,8 @@ class KaKaoLogin extends StatelessWidget {
                   buttonColor: Colors.yellow,
                   context: context,
                   svgPath: 'assets/kakao_logo.svg',
+                  width: 15,
+                  height: 15,
                   onPressed: () async {
                     await supabase.auth.signInWithOAuth(OAuthProvider.kakao);
 
