@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.supabase">
+    package="com.nuridal.supabase">
 
     <!-- 인터넷 사용 권한 설정-->
     <uses-permission android:name="android.permission.INTERNET" />  
@@ -34,7 +34,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-            <!-- Accepts URIs that begin with packageID, oauth -->
+            <!-- Accepts URIs that begin with package="com.nuridal.supabase">
 		    <data android:scheme="com.example.supabase" android:host="oauth"/>
 
             </intent-filter>
