@@ -34,8 +34,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-            <!-- Accepts URIs that begin with package="com.nuridal.supabase">
-		    <data android:scheme="com.example.supabase" android:host="oauth"/>
+            <!-- Accepts URIs that begin with package="com.nuridal.supabase"-->
+		    <data android:scheme="com.nuridal.supabase" android:host="oauth"/>
 
             </intent-filter>
         </activity>
