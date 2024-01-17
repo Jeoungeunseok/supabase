@@ -30,7 +30,17 @@ class AppleLogin extends StatelessWidget {
                   width: 30,
                   height: 30,
                   onPressed: () async {
-                    signInWithApple();
+                    try {
+                      AuthResponse response = await signInWithApple();
+                      if (response.user != null) {
+                        final snackBarText = SnackBar(
+                            content: Text('${response.user?.email}님 반갑습니다'));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarText);
+                      }
+                    } catch (e) {
+                      debugPrint('$e');
+                    }
                   }),
               ElevatedButton(
                 onPressed: () {
