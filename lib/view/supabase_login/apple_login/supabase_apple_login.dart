@@ -1,6 +1,9 @@
+import 'dart:convert';
+// ignore: depend_on_referenced_packages
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_connect/utils/login_button.dart';
-import 'package:supabase_connect/view/supabase_login/kakao_login/kakao_login_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AppleLogin extends StatelessWidget {
@@ -27,21 +30,7 @@ class AppleLogin extends StatelessWidget {
                   width: 30,
                   height: 30,
                   onPressed: () async {
-                    await supabase.auth.signInWithOAuth(OAuthProvider.apple);
-
-                    // Listen to auth state changes in order to detect when ther OAuth login is complete.
-                    supabase.auth.onAuthStateChange.listen((data) {
-                      final AuthChangeEvent event = data.event;
-                      if (event == AuthChangeEvent.signedIn) {
-                        debugPrint('데이터 : $data');
-                        debugPrint('세션 : ${data.session}');
-
-                        // Do something when user sign in
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                KakaoInfo(session: data.session!)));
-                      }
-                    });
+                    signInWithApple();
                   }),
               ElevatedButton(
                 onPressed: () {
@@ -50,5 +39,31 @@ class AppleLogin extends StatelessWidget {
                 child: const Text('back'),
               ),
             ])));
+  }
+
+  /// Performs Apple sign in on iOS or macOS
+  Future<AuthResponse> signInWithApple() async {
+    final rawNonce = supabase.auth.generateRawNonce();
+    final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: hashedNonce,
+    );
+
+    final idToken = credential.identityToken;
+    if (idToken == null) {
+      throw const AuthException(
+          'Could not find ID Token from generated credential.');
+    }
+
+    return supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.apple,
+      idToken: idToken,
+      nonce: rawNonce,
+    );
   }
 }
