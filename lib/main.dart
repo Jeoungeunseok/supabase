@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:supabase_connect/view/supabase_login/apple_login/supabase_apple_login.dart';
-import 'package:supabase_connect/view/supabase_login/kakao_login/supabase_kakao_login.dart';
+import 'package:supabase_connect/view/supabase_login/login_integration.dart';
+import 'package:supabase_connect/view/supabase_login/old/apple_login/supabase_apple_login.dart';
+import 'package:supabase_connect/view/supabase_login/old/kakao_login/supabase_kakao_login.dart';
+import 'package:supabase_connect/view/supabase_login/old/old_login.dart';
 import 'package:supabase_connect/view/supabase_login/supabase_login_list.dart';
 import 'package:supabase_connect/view/supabase_crud_view.dart';
 import 'package:supabase_connect/view/supabase_realTime_view.dart';
@@ -14,8 +16,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await Supabase.initialize(
-    url: dotenv.get("PROJECT_URL"),
-    anonKey: dotenv.get("PROJECT_API_KEY"),
+    url: dotenv.get("SERVER_PROJECT_URL"),
+    anonKey: dotenv.get("SERVER_API_KEY"),
   );
 
   KakaoSdk.init(
@@ -47,6 +49,8 @@ class SupabaseApp extends StatelessWidget {
         '/supabase_subscription_view': (context) =>
             const SupabaseSubscribeView(),
         '/supabase_login_list': (context) => const SupabaseLogin(),
+        '/supabase_login_integration': (context) => const LoginIntegration(),
+        '/supabase_login_old': (context) => const SupabaseOldLogin(),
         '/supabase_kakao_login': (context) => KaKaoLogin(),
         '/supabase_apple_login': (context) => AppleLogin(),
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:supabase_connect/utils/login_button.dart';
-import 'package:supabase_connect/view/supabase_login/kakao_login/kakao_login_info.dart';
+import 'package:supabase_connect/view/supabase_login/old/kakao_login/kakao_login_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class KaKaoLogin extends StatelessWidget {
